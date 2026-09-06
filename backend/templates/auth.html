@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketPulse - Welcome</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .tab-active {
+            background: white;
+            color: #1f2937;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .tab-inactive {
+            background: transparent;
+            color: white;
+        }
+        .form-slide {
+            transition: all 0.5s ease;
+        }
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    
+    <!-- Background Animation -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="floating absolute top-20 left-20 text-white/20 text-6xl">📈</div>
+        <div class="floating absolute top-32 right-32 text-white/20 text-4xl" style="animation-delay: -2s;">💹</div>
+        <div class="floating absolute bottom-32 left-32 text-white/20 text-5xl" style="animation-delay: -4s;">📊</div>
+        <div class="floating absolute bottom-20 right-20 text-white/20 text-3xl" style="animation-delay: -1s;">💰</div>
+    </div>
+
+    <div class="glass p-8 max-w-md w-full relative z-10">
+        <!-- Logo -->
+        <div class="text-center mb-8">
+            <div class="text-6xl mb-4">📈</div>
+            <h1 class="text-4xl font-bold text-white mb-2">MarketPulse</h1>
+            <p class="text-white/80">Know what changed. Know what matters.</p>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="flex mb-6 bg-white/20 rounded-xl p-1">
+            <button id="loginTab" onclick="showLogin()" 
+                    class="flex-1 py-3 px-4 rounded-lg font-semibold transition-all tab-active">
+                Sign In
+            </button>
+            <button id="signupTab" onclick="showSignup()" 
+                    class="flex-1 py-3 px-4 rounded-lg font-semibold transition-all tab-inactive">
+                Sign Up
+            </button>
+        </div>
+
+        <!-- Auth Forms Container -->
+        <div class="bg-white/90 rounded-2xl shadow-2xl overflow-hidden">
+            
+            <!-- Login Form -->
+            <div id="loginForm" class="p-6 form-slide">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Welcome Back!</h2>
+                
+                <div id="loginError" class="hidden mb-4 p-3 bg-red-50 text-red-600 rounded-lg text-sm"></div>
+                
+                <form id="loginFormElement" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            <span class="flex items-center">
+                                <span class="mr-2">📧</span> Email Address
+                            </span>
+                        </label>
+                        <input type="email" id="loginEmail" required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                               placeholder="your@email.com">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            <span class="flex items-center">
+                                <span class="mr-2">🔒</span> Password
+                            </span>
+                        </label>
+                        <input type="password" id="loginPassword" required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                               placeholder="Enter password">
+                    </div>
+                    
+                    <button type="submit" 
+                            class="btn-primary w-full text-white py-3 rounded-xl font-semibold text-lg">
+                        Sign In →
+                    </button>
+                </form>
+                
+                <div class="my-4 flex items-center">
+                    <div class="flex-1 border-t border-gray-300"></div>
+                    <span class="px-4 text-gray-500 text-sm">or</span>
+                    <div class="flex-1 border-t border-gray-300"></div>
+                </div>
+                
+                <button onclick="demoLogin()" 
+                        class="w-full bg-gradient-to-r from-green-400 to-green-600 text-white py-3 rounded-xl font-semibold hover:from-green-500 hover:to-green-700 transition">
+                    🚀 Try Demo (No Account)
+                </button>
+            </div>
+
+            <!-- Signup Form -->
+            <div id="signupForm" class="hidden p-6 form-slide">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Join MarketPulse!</h2>
+                
+                <div id="signupError" class="hidden mb-4 p-3 bg-red-50 text-red-600 rounded-lg text-sm"></div>
+                
+                <form id="signupFormElement" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            <span class="flex items-center">
+                                <span class="mr-2">📧</span> Email Address
+                            </span>
+                        </label>
+                        <input type="email" id="signupEmail" required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                               placeholder="your@email.com">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            <span class="flex items-center">
+                                <span class="mr-2">🔒</span> Password
+                            </span>
+                        </label>
+                        <input type="password" id="signupPassword" required minlength="6"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                               placeholder="At least 6 characters">
+                        <p class="text-xs text-gray-500 mt-1">Must be at least 6 characters</p>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            <span class="flex items-center">
+                                <span class="mr-2">✅</span> Confirm Password
+                            </span>
+                        </label>
+                        <input type="password" id="confirmPassword" required minlength="6"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                               placeholder="Confirm your password">
+                    </div>
+                    
+                    <button type="submit" 
+                            class="btn-primary w-full text-white py-3 rounded-xl font-semibold text-lg">
+                        Create Account →
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+            <div class="bg-white rounded-2xl p-8 text-center">
+                <div class="animate-spin text-4xl mb-4">⚡</div>
+                <p class="text-gray-600 font-semibold">Logging you in...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = '/api';
+        let isLoginMode = true;
+
+        // Form Elements
+        const loginTab = document.getElementById('loginTab');
+        const signupTab = document.getElementById('signupTab');
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+
+        // Check if already authenticated
+        if (localStorage.getItem('authToken')) {
+            showLoading();
+            window.location.href = '/dashboard';
+        }
+
+        // Tab switching
+        function showLogin() {
+            isLoginMode = true;
+            
+            // Update tabs
+            loginTab.className = 'flex-1 py-3 px-4 rounded-lg font-semibold transition-all tab-active';
+            signupTab.className = 'flex-1 py-3 px-4 rounded-lg font-semibold transition-all tab-inactive';
+            
+            // Update forms
+            loginForm.classList.remove('hidden');
+            signupForm.classList.add('hidden');
+            
+            // Clear errors
+            document.getElementById('loginError').classList.add('hidden');
+            document.getElementById('signupError').classList.add('hidden');
+        }
+
+        function showSignup() {
+            isLoginMode = false;
+            
+            // Update tabs
+            loginTab.className = 'flex-1 py-3 px-4 rounded-lg font-semibold transition-all tab-inactive';
+            signupTab.className = 'flex-1 py-3 px-4 rounded-lg font-semibold transition-all tab-active';
+            
+            // Update forms
+            loginForm.classList.add('hidden');
+            signupForm.classList.remove('hidden');
+            
+            // Clear errors
+            document.getElementById('loginError').classList.add('hidden');
+            document.getElementById('signupError').classList.add('hidden');
+        }
+
+        // Login Form Handler
+        document.getElementById('loginFormElement').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            showLoading();
+
+            try {
+                const res = await fetch(`${API_BASE}/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+                    localStorage.setItem('authToken', data.access_token);
+                    
+                    // Success animation
+                    document.getElementById('loadingOverlay').innerHTML = `
+                        <div class="bg-white rounded-2xl p-8 text-center">
+                            <div class="text-4xl mb-4 text-green-600">✅</div>
+                            <p class="text-gray-800 font-semibold">Welcome back!</p>
+                            <p class="text-gray-600 text-sm">Redirecting to dashboard...</p>
+                        </div>`;
+                    
+                    setTimeout(() => {
+                        window.location.href = '/dashboard';
+                    }, 1500);
+                    
+                } else {
+                    hideLoading();
+                    const error = await res.json();
+                    showError('loginError', error.detail || 'Login failed');
+                }
+            } catch (error) {
+                hideLoading();
+                showError('loginError', 'Network error. Please try again.');
+            }
+        });
+
+        // Signup Form Handler
+        document.getElementById('signupFormElement').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                showError('signupError', 'Passwords do not match');
+                return;
+            }
+
+            showLoading();
+
+            try {
+                const res = await fetch(`${API_BASE}/auth/signup`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+                    localStorage.setItem('authToken', data.access_token);
+                    
+                    // Success animation
+                    document.getElementById('loadingOverlay').innerHTML = `
+                        <div class="bg-white rounded-2xl p-8 text-center">
+                            <div class="text-4xl mb-4 text-green-600">🎉</div>
+                            <p class="text-gray-800 font-semibold">Account Created!</p>
+                            <p class="text-gray-600 text-sm">Welcome to MarketPulse...</p>
+                        </div>`;
+                    
+                    setTimeout(() => {
+                        window.location.href = '/dashboard';
+                    }, 1500);
+                    
+                } else {
+                    hideLoading();
+                    const error = await res.json();
+                    showError('signupError', error.detail || 'Signup failed');
+                }
+            } catch (error) {
+                hideLoading();
+                showError('signupError', 'Network error. Please try again.');
+            }
+        });
+
+        // Demo Login
+        async function demoLogin() {
+            showLoading();
+            
+            try {
+                const res = await fetch(`${API_BASE}/auth/demo-login`, { method: 'POST' });
+                if (res.ok) {
+                    const data = await res.json();
+                    localStorage.setItem('authToken', data.access_token);
+                    
+                    document.getElementById('loadingOverlay').innerHTML = `
+                        <div class="bg-white rounded-2xl p-8 text-center">
+                            <div class="text-4xl mb-4">🚀</div>
+                            <p class="text-gray-800 font-semibold">Demo Mode Activated!</p>
+                            <p class="text-gray-600 text-sm">Loading dashboard...</p>
+                        </div>`;
+                    
+                    setTimeout(() => {
+                        window.location.href = '/dashboard';
+                    }, 1500);
+                } else {
+                    hideLoading();
+                    showError('loginError', 'Demo login failed');
+                }
+            } catch (error) {
+                hideLoading();
+                showError('loginError', 'Demo login failed');
+            }
+        }
+
+        // Helper functions
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = message;
+            errorElement.classList.remove('hidden');
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                errorElement.classList.add('hidden');
+            }, 5000);
+        }
+
+        function showLoading() {
+            document.getElementById('loadingOverlay').classList.remove('hidden');
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingOverlay').classList.add('hidden');
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab' && e.ctrlKey) {
+                e.preventDefault();
+                isLoginMode ? showSignup() : showLogin();
+            }
+        });
+
+        // Auto-focus first input
+        document.getElementById('loginEmail').focus();
+    </script>
+</body>
+</html>
